@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+
+# dotenv
+.env
+
+# Prisma
+prisma/dev.db
+prisma/dev.db-journal
+
+# TypeScript
+dist/
+build/
+*.tsbuildinfo
+
+# VSCode
+.vscode/
+
+# Jest
+coverage/
