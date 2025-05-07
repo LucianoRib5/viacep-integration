@@ -29,13 +29,9 @@ export class CepService {
   }
 
   async favoriteOrUnfavoriteCep(cep: string) {
-    const existing = await this.cepRepository.findByCep(cep);
-
-    if (!existing) {
-      throw new Error('CEP not found');
-    }
+    const cepData = await this.getCep(cep);
   
-    if (existing.favorito) {
+    if (cepData?.favorito) {
       await this.cepRepository.updateFavoriteStatus(cep, false);
       return { message: 'CEP unfavorited successfully.' };
     } else {
@@ -45,12 +41,7 @@ export class CepService {
   };
 
   async updateAddress(cep: string, address: BasicAddressInfo) {
-    const existing = await this.cepRepository.findByCep(cep);
-
-    if (!existing) {
-      throw new Error('CEP not found');
-    }
-
+    await this.getCep(cep);
     const updatedAddress = await this.cepRepository.updateAddress(cep, address);
     return updatedAddress;
   }
