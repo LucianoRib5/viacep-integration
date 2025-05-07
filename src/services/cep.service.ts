@@ -1,3 +1,4 @@
+import { NotFoundError } from '../exceptions/custom';
 import { BasicAddressInfo } from '../interfaces/basicAddressInfo.interface';
 import { CepRepository } from '../repositories/cep.repository';
 
@@ -9,40 +10,64 @@ export class CepService {
   }
 
   async getCep(cep: string) {
-    const cepData = await this.cepRepository.findByCep(cep);
+    try {
+      const cepData = await this.cepRepository.findByCep(cep);
 
-    if (!cepData) {
-      throw new Error('CEP not found');
+      if (!cepData) {
+        throw new NotFoundError('CEP not found');
+      }
+  
+      return cepData;
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        throw error;
+      } else {
+        throw new Error('An unexpected error occurred while fetching the CEP');
+      }   
     }
-
-    return cepData;
   }
 
   async getAllCeps() {
-    const ceps = await this.cepRepository.findAll();
+    try {
+      const ceps = await this.cepRepository.findAll();
 
-    if (!ceps) {
-      throw new Error('No CEPs found');
+      if (ceps.length === 0) {
+        throw new NotFoundError('No CEPs found');
+      }
+  
+      return ceps;
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        throw error;
+      } else {
+        throw new Error('An unexpected error occurred while fetching all CEPs');
+      }
     }
-
-    return ceps;
   }
 
   async favoriteOrUnfavoriteCep(cep: string) {
-    const cepData = await this.getCep(cep);
+    try {
+      const cepData = await this.getCep(cep);
   
-    if (cepData?.favorito) {
-      await this.cepRepository.updateFavoriteStatus(cep, false);
-      return { message: 'CEP unfavorited successfully.' };
-    } else {
-      await this.cepRepository.updateFavoriteStatus(cep, true);
-      return { message: 'CEP favorited successfully.' };
+      if (cepData?.favorito) {
+        await this.cepRepository.updateFavoriteStatus(cep, false);
+        return { message: 'CEP unfavorited successfully.' };
+      } else {
+        await this.cepRepository.updateFavoriteStatus(cep, true);
+        return { message: 'CEP favorited successfully.' };
+      }
+    } catch (error) {
+      throw error;
     }
-  };
+  }
 
   async updateAddress(cep: string, address: BasicAddressInfo) {
-    await this.getCep(cep);
-    const updatedAddress = await this.cepRepository.updateAddress(cep, address);
-    return updatedAddress;
+    try {
+      await this.getCep(cep);
+      const updatedAddress = await this.cepRepository.updateAddress(cep, address);
+      return updatedAddress;
+    } catch (error) {
+      throw error;
+    }
   }
 }

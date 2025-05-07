@@ -22,7 +22,9 @@ export class CepController {
       const data = await this.cepService.getCep(cep);
       res.json(data);
     } catch (err: any) {
-      res.status(500).json({ error: err.message });
+      const status = err.statusCode ?? 500;
+      const message = err.message ?? 'Unexpected error';
+      res.status(status).json({ error: message });
     }
   };
 
@@ -31,7 +33,9 @@ export class CepController {
       const data = await this.cepService.getAllCeps();
       res.json(data);
     } catch (err: any) {
-      res.status(500).json({ error: err.message });
+      const status = err.statusCode ?? 500;
+      const message = err.message ?? 'Unexpected error';
+      res.status(status).json({ error: message });
     }
   };
 
@@ -48,9 +52,11 @@ export class CepController {
       const data = await this.cepService.favoriteOrUnfavoriteCep(cep);
       res.json(data);
     } catch (err: any) {
-      res.status(500).json({ error: err.message });
+      const status = err.statusCode ?? 500;
+      const message = err.message ?? 'Unexpected error';
+      res.status(status).json({ error: message });
     }
-  };
+  };  
 
   updateAddress = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -73,7 +79,9 @@ export class CepController {
       const data = await this.cepService.updateAddress(cep, address);
       res.json(data);
     } catch (err: any) {
-      res.status(500).json({ error: err.message });
+      const status = err.statusCode ?? 500;
+      const message = err.message ?? 'Unexpected error';
+      res.status(status).json({ error: message });
     }
   };
 }
