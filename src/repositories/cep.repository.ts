@@ -6,4 +6,8 @@ export class CepRepository {
       where: { cep },
     });
   }
+
+  async findAll() {
+    return await prisma.cep.findMany();
+  }
 }

@@ -16,4 +16,14 @@ export class CepService {
 
     return cepData;
   }
+
+  async getAllCeps() {
+    const ceps = await this.cepRepository.findAll();
+
+    if (!ceps) {
+      throw new Error('No CEPs found');
+    }
+
+    return ceps;
+  }
 }

@@ -5,5 +5,6 @@ const router = express.Router();
 const cepController = new CepController();
 
 router.get('/:cep', cepController.getCepByParam);
+router.get('/', cepController.getAllCeps);
 
 export default router;

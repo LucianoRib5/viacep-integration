@@ -25,4 +25,13 @@ export class CepController {
       res.status(500).json({ error: err.message });
     }
   };
+
+  getAllCeps = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const data = await this.cepService.getAllCeps();
+      res.json(data);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  };
 }
