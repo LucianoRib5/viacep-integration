@@ -4,7 +4,10 @@
   "description": "A Node.js application that integrates with the ViaCEP API to retrieve, store, update, and manage Brazilian postal codes (CEPs). Features include CRUD operations, favoriting, and database persistence.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "sync": "ts-node src/sync.ts"
   },
   "repository": {
     "type": "git",
@@ -19,10 +22,12 @@
   "homepage": "https://github.com/LucianoRib5/viacep-integration#readme",
   "dependencies": {
     "@prisma/client": "^6.7.0",
+    "axios": "^1.9.0",
     "express": "^5.1.0",
     "prisma": "^6.7.0"
   },
   "devDependencies": {
+    "@types/axios": "^0.9.36",
     "@types/express": "^5.0.1",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.15.14",
