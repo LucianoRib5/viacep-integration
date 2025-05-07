@@ -12,3 +12,8 @@ export const cepParamSchema = z.object({
       message: 'CEP must contain exactly 8 digits formatted as 00000-000',
     }),
 });
+
+export const basicAddressInfoSchema = z.object({
+  street: z.string().min(1, 'Street is required'),
+  neighborhood: z.string().min(1, 'Neighborhood is required'),
+});

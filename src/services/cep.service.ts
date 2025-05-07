@@ -1,3 +1,4 @@
+import { BasicAddressInfo } from '../interfaces/basicAddressInfo.interface';
 import { CepRepository } from '../repositories/cep.repository';
 
 export class CepService {
@@ -42,4 +43,15 @@ export class CepService {
       return { message: 'CEP favorited successfully.' };
     }
   };
+
+  async updateAddress(cep: string, address: BasicAddressInfo) {
+    const existing = await this.cepRepository.findByCep(cep);
+
+    if (!existing) {
+      throw new Error('CEP not found');
+    }
+
+    const updatedAddress = await this.cepRepository.updateAddress(cep, address);
+    return updatedAddress;
+  }
 }
