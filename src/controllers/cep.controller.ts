@@ -34,4 +34,21 @@ export class CepController {
       res.status(500).json({ error: err.message });
     }
   };
+
+  favoriteOrUnfavoriteCep = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const result = cepParamSchema.safeParse(req.params);
+  
+      if (!result.success) {
+        res.status(400).json({ error: result.error.format() });
+        return;
+      }
+  
+      const { cep } = result.data;
+      const data = await this.cepService.favoriteOrUnfavoriteCep(cep);
+      res.json(data);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  };
 }

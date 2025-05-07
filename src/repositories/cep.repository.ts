@@ -10,4 +10,11 @@ export class CepRepository {
   async findAll() {
     return await prisma.cep.findMany();
   }
+
+ async updateFavoriteStatus (cep: string, isFavorited: boolean) {
+    return await prisma.cep.update({
+      where: { cep },
+      data: { favorito: isFavorited },
+    });
+  };
 }

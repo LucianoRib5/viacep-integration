@@ -26,4 +26,20 @@ export class CepService {
 
     return ceps;
   }
+
+  async favoriteOrUnfavoriteCep(cep: string) {
+    const existing = await this.cepRepository.findByCep(cep);
+
+    if (!existing) {
+      throw new Error('CEP not found');
+    }
+  
+    if (existing.favorito) {
+      await this.cepRepository.updateFavoriteStatus(cep, false);
+      return { message: 'CEP unfavorited successfully.' };
+    } else {
+      await this.cepRepository.updateFavoriteStatus(cep, true);
+      return { message: 'CEP favorited successfully.' };
+    }
+  };
 }
