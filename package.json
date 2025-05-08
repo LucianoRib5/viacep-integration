@@ -4,7 +4,7 @@
   "description": "A Node.js application that integrates with the ViaCEP API to retrieve, store, update, and manage Brazilian postal codes (CEPs). Features include CRUD operations, favoriting, and database persistence.",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev": "npx prisma generate && ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
     "sync": "ts-node src/sync.ts",
