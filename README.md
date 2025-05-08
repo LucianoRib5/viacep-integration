@@ -42,9 +42,14 @@ $ docker-compose up -d
 $ yarn run sync
 
 # Execute o script dev
-yarn run dev
+$ yarn run dev
 
 # O servidor iniciará na porta:3000.
+```
+
+### 🧪 Como rodar os testes
+```bash
+$ yarn run test
 ```
 
 ### Autor
